@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Poker Night</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header id="room-badge" class="room-badge hidden">
+  <div class="room-badge-inner">
+    <span class="room-badge-label">Room</span>
+    <span id="room-code-label" class="room-code"></span>
+    <button id="btn-summary" class="btn-summary-toggle">Summary</button>
+  </div>
+</header>
+
+<main id="app">
+
+  <section id="screen-landing" class="screen">
+    <div class="landing-hero">
+      <div class="hero-chip"></div>
+      <h1 class="brand-title">Poker Night</h1>
+      <p class="brand-sub">Real cards on the table. This tracks the chips.</p>
+    </div>
+
+    <form id="form-create" class="card">
+      <h2 class="card-title">Start a game</h2>
+      <label class="field">
+        <span>Your name</span>
+        <input id="create-name" type="text" required maxlength="20" placeholder="Alice" />
+      </label>
+      <div class="field-row">
+        <label class="field">
+          <span>Starting stack</span>
+          <input id="create-stack" type="number" value="500" min="10" />
+        </label>
+        <label class="field">
+          <span>Small blind</span>
+          <input id="create-sb" type="number" value="5" min="1" />
+        </label>
+        <label class="field">
+          <span>Big blind</span>
+          <input id="create-bb" type="number" value="10" min="2" />
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Create room</button>
+    </form>
+
+    <form id="form-join" class="card">
+      <h2 class="card-title">Join a game</h2>
+      <label class="field">
+        <span>Room code</span>
+        <input id="join-code" type="text" required maxlength="6" placeholder="AB3XQ9" style="text-transform:uppercase" />
+      </label>
+      <label class="field">
+        <span>Your name</span>
+        <input id="join-name" type="text" required maxlength="20" placeholder="Bob" />
+      </label>
+      <button type="submit" class="btn btn-secondary btn-block">Join room</button>
+    </form>
+  </section>
+
+  <section id="screen-lobby" class="screen hidden">
+    <div class="lobby-code-block">
+      <span class="lobby-code-caption">Share this code</span>
+      <span id="lobby-code" class="lobby-code"></span>
+    </div>
+    <div id="lobby-players" class="player-list"></div>
+    <div id="lobby-admin-controls" class="hidden">
+      <button id="lobby-start-btn" class="btn btn-primary btn-block">Start hand</button>
+    </div>
+    <div id="lobby-wait-msg" class="wait-msg">Waiting for the admin to start the first hand.</div>
+  </section>
+
+  <section id="screen-game" class="screen hidden">
+    <div id="game-content"></div>
+  </section>
+
+</main>
+
+<div id="summary-modal" class="modal hidden">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h2>Session summary</h2>
+      <button id="btn-close-summary" class="btn-close">&times;</button>
+    </div>
+    <div class="summary-table">
+      <div class="summary-row summary-head">
+        <span>Player</span><span>Buy-in</span><span>Stack</span><span>Net</span>
+      </div>
+      <div id="summary-rows"></div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
