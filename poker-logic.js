@@ -269,9 +269,11 @@ export function awardPots(room, winnerSelections) {
   for (const [uid, p] of Object.entries(room.players)) players[uid] = { ...p };
 
   room.pots.forEach((pot, i) => {
-    // Defensive: ignore any winner uid that somehow isn't a real player anymore.
-    const winners = (winnerSelections[i] || []).filter((uid) => players[uid]);
-    if (winners.length === 0) return;
+  const winners = (winnerSelections[i] || [])
+    .filter((uid) => pot.eligibleUids.includes(uid))
+    .filter((uid) => players[uid]);
+
+  if (winners.length === 0) return;
     const share = Math.floor(pot.amount / winners.length);
     const remainder = pot.amount - share * winners.length;
     winners.forEach((uid, idx) => {
